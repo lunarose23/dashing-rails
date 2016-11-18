@@ -1,4 +1,3 @@
-#console.log("Yeah! The dashboard has started!")
 if Dashing.debugMode
   console.log("Connection opened", e)
 
