@@ -12,6 +12,7 @@ module Dashing
       @redis = Dashing.redis
       @redis.psubscribe("#{Dashing.config.redis_namespace}.*") do |on|
         on.pmessage do |pattern, event, data|
+          response.stream.write("data: #{data}\n\n")
         end
       end
     rescue IOError

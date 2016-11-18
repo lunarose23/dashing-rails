@@ -2,11 +2,6 @@ if Dashing.debugMode
   console.log("Connection opened", e)
 
 Dashing.on 'ready', ->
-  var padding = new Array(2049);
-  console.log("padding", padding);
-  response.stream.write(":" + padding.join(" ") + "\n"); # 2kB padding for IE
-  response.stream.write("retry: 2000\n");
-  response.stream.write("data: #{data}\n\n")
   Dashing.widget_margins ||= [5, 5]
   Dashing.widget_base_dimensions ||= [300, 360]
   Dashing.numColumns ||= 4
