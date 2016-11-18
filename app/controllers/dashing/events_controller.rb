@@ -13,8 +13,8 @@ module Dashing
       @redis.psubscribe("#{Dashing.config.redis_namespace}.*") do |on|
         on.pmessage do |pattern, event, data|
           var padding = new Array(2049);
-          response.write(":" + padding.join(" ") + "\n"); # 2kB padding for IE
-          response.write("retry: 2000\n");
+          response.stream.write(":" + padding.join(" ") + "\n"); # 2kB padding for IE
+          response.stream.write("retry: 2000\n");
           response.stream.write("data: #{data}\n\n")
         end
       end
