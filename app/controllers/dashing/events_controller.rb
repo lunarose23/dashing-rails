@@ -9,23 +9,12 @@ module Dashing
       response.headers['Cache-Control'] = 'no-cache' # For Yaffle eventsource polyfill
       response.stream.write latest_events
 
-      stream :keep_open do |out|
-        settings.connections << out
-      
-        # For Yaffle eventsource polyfill
-        #Add 2k padding for IE
-        str = ":".ljust(2049) << "\n"
-        #add retry key
-        str << "retry: 2000\n"
-        out << str
-        
-        out << latest_events
-        out.callback { settings.connections.delete(out) }
-      end
-
       @redis = Dashing.redis
       @redis.psubscribe("#{Dashing.config.redis_namespace}.*") do |on|
         on.pmessage do |pattern, event, data|
+          var padding = new Array(2049);
+          response.write(":" + padding.join(" ") + "\n"); // 2kB padding for IE
+          response.write("retry: 2000\n");
           response.stream.write("data: #{data}\n\n")
         end
       end
