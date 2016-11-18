@@ -10,6 +10,8 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+// make sure yaffles eventsource goes in first
+//= require eventsource
 //= require dashing
 //= require_tree .
 //= require dashing.gridster
